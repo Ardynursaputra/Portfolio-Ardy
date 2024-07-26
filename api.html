@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .data-container {
+            margin-top: 20px;
+        }
+        .data-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data from API</h1>
+    <div id="data-container" class="data-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://presensi.pipapip.web.id/api')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('data-container');
+                    data.forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'data-item';
+                        div.textContent = JSON.stringify(item);
+                        container.appendChild(div);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    const container = document.getElementById('data-container');
+                    container.textContent = 'Error fetching data';
+                });
+        });
+    </script>
+</body>
+</html>
